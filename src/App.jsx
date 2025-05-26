@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Welcome from "./pages/Welcome";
 import Profile from "./pages/Profile";
 import Deconnexion from "./pages/Deconnexion";
+import { AuthContext } from './context/AuthContext';
 import { DataProvider } from "./context/DataContext";
 import { useContext } from "react";
 import Connexion from "./pages/Login";

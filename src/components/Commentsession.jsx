@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { FaEdit, FaPaperPlane } from "react-icons/fa";
 import Commentlike from "./Commentlike";
-import { DataContext } from "../context/Datacontext";
+import { DataContext } from "../context/DataContext";
 import { FiEdit } from "react-icons/fi";
 
 function CommentSession({ postID }) {

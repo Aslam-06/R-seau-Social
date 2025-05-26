@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { DataContext } from "../context/Datacontext";
+import { DataContext } from "../context/DataContext";
 
 function PostForm() {
   const { addpost } = useContext(DataContext); 

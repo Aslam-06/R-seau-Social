@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import PostItem from '../components/Postitem';
 import PostForm from '../components/Postform';
-import { DataContext } from '../context/Datacontext';
+import { DataContext } from '../context/DataContext';
 
 function Profile() {
   const { user } = useContext(AuthContext);
