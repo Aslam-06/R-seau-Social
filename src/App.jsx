@@ -10,8 +10,6 @@ import Profile from './pages/Profile';
 import Deconnexion from './pages/Deconnexion';
 import Connexion from './pages/Login';
 
-
-
 function PrivateRoute({ children }) {
   const { user } = useContext(AuthContext);
   return user ? children : <Navigate to="/welcome" />;
@@ -24,10 +22,24 @@ function App() {
         <DataProvider>
           <Routes>
             <Route path="/welcome" element={<Welcome />} />
-            <Route path="/login" element={< Connexion />} />
+            <Route path="/login" element={<Connexion />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile /> } />
+            <Route 
+              path="/" 
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/profile" 
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              } 
+            />
             <Route path="/deconnexion" element={<Deconnexion />} />
           </Routes>
         </DataProvider>
