@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Alert, Card } from 'react-bootstrap';
-import { AuthContext } from '../context/Authcontext';
+import { AuthContext } from '../context/AuthContext';
 
 function Connexion() {
   const [message, setMessage] = useState('');

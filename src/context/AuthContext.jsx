@@ -1,6 +1,5 @@
 import { createContext, useState, useEffect } from "react";
 
-// Fonctions pour gérer le localStorage
 const getUserFromStorage = () => {
   const user = localStorage.getItem('user');
   return user ? JSON.parse(user) : null;
@@ -23,10 +22,8 @@ const saveUsersToStorage = (users) => {
   localStorage.setItem('users', JSON.stringify(users));
 };
 
-// Création du contexte d'authentification
 export const AuthContext = createContext(null);
 
-// Provider qui englobe l'application
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);

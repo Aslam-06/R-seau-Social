@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/Authcontext';
+import { AuthContext } from '../context/AuthContext';
 
 function Deconnexion() {
   const navigate = useNavigate();

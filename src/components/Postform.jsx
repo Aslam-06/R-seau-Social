@@ -49,14 +49,12 @@ function PostForm() {
 
   return (
     <>
-      {/* Message d'erreur */}
       {error && (
         <p style={{ color: "red", marginBottom: 8, fontWeight: 500 }}>
           {error}
         </p>
       )}
 
-      {/* Formulaire */}
       <form onSubmit={handleSubmit} className="post-form" style={{ marginBottom: 20 }}>
         <textarea
           placeholder="Exprime-toi..."
