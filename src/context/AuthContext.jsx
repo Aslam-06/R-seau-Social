@@ -1,21 +1,42 @@
-import { createContext, useEffect, useState } from "react";
-import { 
-  getUserFromStorage, saveUserToStorage, removeUserFromStorage,
-  getUsersFromStorage, saveUsersToStorage
-} from "../utils/storage";
+import { createContext, useState, useEffect } from "react";
 
+// Fonctions pour gérer le localStorage
+const getUserFromStorage = () => {
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
+};
+
+const saveUserToStorage = (user) => {
+  localStorage.setItem('user', JSON.stringify(user));
+};
+
+const removeUserFromStorage = () => {
+  localStorage.removeItem('user');
+};
+
+const getUsersFromStorage = () => {
+  const users = localStorage.getItem('users');
+  return users ? JSON.parse(users) : [];
+};
+
+const saveUsersToStorage = (users) => {
+  localStorage.setItem('users', JSON.stringify(users));
+};
+
+// Création du contexte d'authentification
 export const AuthContext = createContext(null);
 
+// Provider qui englobe l'application
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const connectedUser = getUserFromStorage();
     if (connectedUser) setUser(connectedUser);
   }, []);
 
-  const registeruser = (userData) => {
+  const registerUser = (userData) => {
     const users = getUsersFromStorage();
 
     const userExists = users.some(u => u.email === userData.email);
@@ -24,7 +45,7 @@ export const AuthProvider = ({ children }) => {
       return false;
     }
 
-    const newUser = { ...userData, username: userData.email };
+    const newUser = { ...userData, username: userData.email, id: Date.now() }; // ajout d'un id unique
     users.push(newUser);
     saveUsersToStorage(users);
 
@@ -34,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     return true;
   };
 
-  const loginuser = (userData) => {
+  const loginUser = (userData) => {
     const users = getUsersFromStorage();
     const foundUser = users.find(
       u => u.email === userData.email && u.password === userData.password
@@ -58,7 +79,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, error, loginuser, registeruser, logout }}>
+    <AuthContext.Provider value={{ user, error, loginUser, registerUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

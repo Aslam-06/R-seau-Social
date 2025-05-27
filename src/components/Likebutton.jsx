@@ -8,6 +8,8 @@ function Buttonlikes({ postID }) {
   const { posts, setPosts } = useContext(DataContext);
 
   const post = posts.find((p) => p.id === postID);
+  if (!post) return null; 
+
   const isliked = post?.like?.includes(user?.username);
 
   const toggleLike = () => {
@@ -16,16 +18,13 @@ function Buttonlikes({ postID }) {
       return;
     }
 
-    const newPosts = posts.map((p) => {
-      if (p.id === postID) {
-        const updatedLikes = isliked
-          ? p.like.filter((u) => u !== user.username)
-          : [...(p.like || []), user.username];
+    const updatedLikes = isliked
+      ? post.like.filter((u) => u !== user.username)
+      : [...(post.like || []), user.username];
 
-        return { ...p, like: updatedLikes };
-      }
-      return p;
-    });
+    const newPosts = posts.map((p) =>
+      p.id === postID ? { ...p, like: updatedLikes } : p
+    );
 
     setPosts(newPosts);
     localStorage.setItem("posts", JSON.stringify(newPosts));
@@ -34,11 +33,13 @@ function Buttonlikes({ postID }) {
   return (
     <button
       onClick={toggleLike}
-      style={{ background: "none", border: "none", cursor: "pointer" }}
+      style={{ background: "none", border: "none", cursor: user ? "pointer" : "not-allowed" }}
       aria-label={isliked ? "Retirer le like" : "Ajouter un like"}
+      disabled={!user}
+      title={!user ? "Connectez-vous pour aimer" : ""}
     >
       {isliked ? <FaThumbsUp color="blue" /> : <FaRegThumbsUp />}
-      <span>{post?.like?.length || 0}</span>
+      <span style={{ marginLeft: 4 }}>{post.like?.length || 0}</span>
     </button>
   );
 }

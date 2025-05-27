@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { DataContext } from "../context/DataContext";
 import Navigation from "../components/Navigation";
@@ -9,12 +9,19 @@ function Home() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const { posts } = useContext(DataContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user) {
       navigate('/welcome');
+    } else {
+      setLoading(false);
     }
   }, [user, navigate]);
+
+  if (loading) {
+    return <p className="text-center mt-5">Chargement...</p>;
+  }
 
   return (
     <>

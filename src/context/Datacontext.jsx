@@ -9,56 +9,51 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => {
     setLoading(true);
-    const viewposts = JSON.parse(localStorage.getItem("posts")) || [];
-    setPosts(viewposts);
+    const viewPosts = JSON.parse(localStorage.getItem("posts")) || [];
+    const viewComments = JSON.parse(localStorage.getItem("comments")) || [];
+    setPosts(viewPosts);
+    setComments(viewComments);
     setLoading(false);
   }, []);
 
-  useEffect(() => {
-    setLoading(true);
-    const viewcomments = JSON.parse(localStorage.getItem("comments")) || [];
-    setComments(viewcomments);
-    setLoading(false);
-  }, []);
-
-  const addpost = (post) => {
-    const newpost = [post,...posts];
-    setPosts(newpost);
-    localStorage.setItem("posts", JSON.stringify(newpost));
+  const addPost = (post) => {
+    const newPosts = [post, ...posts];
+    setPosts(newPosts);
+    localStorage.setItem("posts", JSON.stringify(newPosts));
   };
 
-  const deletepost = (postID) => {
-    const newpost = posts.filter((post) => post.id !== postID);
-    setPosts(newpost);
-    localStorage.setItem("posts", JSON.stringify(newpost));
+  const deletePost = (postID) => {
+    const newPosts = posts.filter((post) => post.id !== postID);
+    setPosts(newPosts);
+    localStorage.setItem("posts", JSON.stringify(newPosts));
   };
 
-  const updatepost = (update) => {
-    const newpost = posts.map((post) =>
-      post.id === update.id ? update : post
+  const updatePost = (updatedPost) => {
+    const newPosts = posts.map((post) =>
+      post.id === updatedPost.id ? updatedPost : post
     );
-    setPosts(newpost);
-    localStorage.setItem("posts", JSON.stringify(newpost));
+    setPosts(newPosts);
+    localStorage.setItem("posts", JSON.stringify(newPosts));
   };
 
-  const addcomment = (comment) => {
-    const newcomments = [comment,...comments];
-    setComments(newcomments);
-    localStorage.setItem("comments", JSON.stringify(newcomments));
+  const addComment = (comment) => {
+    const newComments = [comment, ...comments];
+    setComments(newComments);
+    localStorage.setItem("comments", JSON.stringify(newComments));
   };
 
-  const deletecomments = (commentID) => {
-    const newcomments = comments.filter((comment) => comment.id !== commentID);
-    setComments(newcomments);
-    localStorage.setItem("comments", JSON.stringify(newcomments));
+  const deleteComment = (commentID) => {
+    const newComments = comments.filter((comment) => comment.id !== commentID);
+    setComments(newComments);
+    localStorage.setItem("comments", JSON.stringify(newComments));
   };
 
-  const updatecomments = (updatecomment) => {
-    const newcomments = comments.map((comment) =>
-      comment.id === updatecomment.id ? updatecomment : comment
+  const updateComment = (updatedComment) => {
+    const newComments = comments.map((comment) =>
+      comment.id === updatedComment.id ? updatedComment : comment
     );
-    setComments(newcomments);
-    localStorage.setItem("comments", JSON.stringify(newcomments));
+    setComments(newComments);
+    localStorage.setItem("comments", JSON.stringify(newComments));
   };
 
   return (
@@ -68,12 +63,12 @@ export const DataProvider = ({ children }) => {
         setPosts,
         comments,
         setComments,
-        addpost,
-        addcomment,
-        deletepost,
-        deletecomments,
-        updatepost,
-        updatecomments,
+        addPost,
+        addComment,
+        deletePost,
+        deleteComment,
+        updatePost,
+        updateComment,
       }}
     >
       {children}

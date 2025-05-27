@@ -2,24 +2,27 @@ import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Alert, Card } from 'react-bootstrap';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/Authcontext';
 
 function Connexion() {
   const [message, setMessage] = useState('');
+  const [localError, setLocalError] = useState('');
   const { register, formState: { errors }, reset, handleSubmit } = useForm();
-  const { loginuser, error } = useContext(AuthContext);
+  const { loginUser, error } = useContext(AuthContext);  
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    const success = loginuser(data);
+    setLocalError('');
+    const success = loginUser(data);  
     if (success) {
       reset();
       setMessage('Connexion réussie');
       setTimeout(() => {
         navigate('/');
-      }, 1000);
+      }, 500);
     } else {
       setMessage('');
+      setLocalError(error || "Erreur inconnue");
     }
   };
 
@@ -30,8 +33,8 @@ function Connexion() {
           <Card className="p-4 shadow-sm">
             <h2 className="mb-4 text-center">Connexion</h2>
 
-            {message && <Alert variant="success">{message}</Alert>}
-            {error && <Alert variant="danger">{error}</Alert>}
+            {message && <Alert variant="success" aria-live="polite">{message}</Alert>}
+            {(localError || error) && <Alert variant="danger" aria-live="assertive">{localError || error}</Alert>}
 
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Form.Group className="mb-3" controlId="formBasicEmail">

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/Authcontext';
 
 function Deconnexion() {
   const navigate = useNavigate();
@@ -9,8 +9,12 @@ function Deconnexion() {
 
   useEffect(() => {
     setUser(null);
-    localStorage.removeItem('user'); 
-  }, [setUser]);
+    localStorage.removeItem('user');
+    const timer = setTimeout(() => {
+      navigate('/welcome');
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [setUser, navigate]);
 
   return (
     <div className="d-grid gap-2 text-center mt-5">

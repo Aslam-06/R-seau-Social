@@ -12,10 +12,15 @@ function Profile() {
     return <p>Veuillez vous connecter pour accéder à votre profil.</p>;
   }
 
+  if (!posts) {
+    return <p>Chargement des publications...</p>;
+  }
+
   const userPosts = posts.filter(post => post.userId === user.id);
 
   return (
     <div className="profile-page p-3">
+      <h2>Bienvenue, {user.nom || user.username} !</h2>
 
       <div className="my-4">
         <h3>Créer un {userPosts.length > 0 ? "nouveau " : ""}post</h3>

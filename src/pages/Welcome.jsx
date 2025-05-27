@@ -17,17 +17,27 @@ function Welcome() {
   return (
     <Container className="text-center mt-5">
       <div>
-        < FaReact size={40} color="#61DBFB"  />
+        <FaReact size={60} color="#61DBFB" aria-label="Logo React" />
       </div>
       <div>
         <h1>Bienvenue sur SphèreConnect</h1>
         <p>Rejoignez notre communauté dès maintenant</p>
       </div>
       <div>
-        <Button onClick={() => navigate('/register')} className="m-2" variant="success">
+        <Button
+          onClick={() => navigate('/register')}
+          className="m-2"
+          variant="success"
+          aria-label="S'inscrire"
+        >
           Inscription
         </Button>
-        <Button onClick={() => navigate('/login')} className="m-2" variant="primary">
+        <Button
+          onClick={() => navigate('/login')}
+          className="m-2"
+          variant="primary"
+          aria-label="Se connecter"
+        >
           Connexion
         </Button>
       </div>

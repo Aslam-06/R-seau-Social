@@ -1,15 +1,16 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Nav } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaHome, FaReact, FaSignInAlt, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 
 function Navigation() {
   const navigate = useNavigate();
-  const { logout } = useContext(AuthContext);  
+  const location = useLocation();
+  const { logout } = useContext(AuthContext);
 
   const handleLogout = () => {
-    logout();         
+    logout();
     navigate('/welcome');
   };
 
@@ -35,29 +36,29 @@ function Navigation() {
         </div>
       </div>
 
-      <Nav fill variant="tabs" defaultActiveKey="/home" style={{ display: "flex" }}>
-        <Nav.Item style={{ flex: 1, textAlign: "left" }}>
-          <Nav.Link onClick={() => navigate("/welcome")}>
-            <FaSignInAlt size={20} style={{ marginRight: "2px" }} />
+      <Nav fill variant="tabs" activeKey={location.pathname} style={{ display: "flex" }}>
+        <Nav.Item style={{ flex: 1, textAlign: "center" }}>
+          <Nav.Link onClick={() => navigate("/welcome")} eventKey="/welcome">
+            <FaSignInAlt size={20} style={{ marginRight: "5px" }} />
           </Nav.Link>
-        </Nav.Item>
-
-        <Nav.Item style={{ flex: 1, textAlign: "left" }}>
-          <Nav.Link onClick={() => navigate("/")}>
-            <FaHome size={20} style={{ marginRight: "5px" }} />
-          </Nav.Link>
-          <p>Accueil</p>
         </Nav.Item>
 
         <Nav.Item style={{ flex: 1, textAlign: "center" }}>
-          <Nav.Link onClick={() => navigate("/profile")}>
-            <FaUserCircle size={20} style={{ marginRight: "5px" }} />
+          <Nav.Link onClick={() => navigate("/")} eventKey="/">
+            <FaHome size={20} style={{ marginRight: "5px" }} />
+            Accueil
           </Nav.Link>
-          <p>Profile</p>
         </Nav.Item>
 
-        <Nav.Item style={{ flex: 1, textAlign: "right" }}>
-          <Nav.Link onClick={handleLogout}> 
+        <Nav.Item style={{ flex: 1, textAlign: "center" }}>
+          <Nav.Link onClick={() => navigate("/profile")} eventKey="/profile">
+            <FaUserCircle size={20} style={{ marginRight: "5px" }} />
+            Profile
+          </Nav.Link>
+        </Nav.Item>
+
+        <Nav.Item style={{ flex: 1, textAlign: "center" }}>
+          <Nav.Link onClick={handleLogout}>
             <FaSignOutAlt size={20} style={{ marginRight: "5px" }} />
           </Nav.Link>
         </Nav.Item>
