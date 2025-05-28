@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
 import { AuthProvider } from './context/AuthContext';
-import { DataProvider } from './context/DataContext';
+import { DataProvider } from './context/DataContext.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
